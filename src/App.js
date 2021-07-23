@@ -1,24 +1,71 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from "react";
+import PostList from "./component/PostList";
+import PostModalBtn from "./component/postModalBtn";
+import PostFormModal from "./component/PostFormModal";
+import FilterButton from "./component/FilterButton";
+//Filter MAP
+const FilterMap = {
+  All:() => true,
+  Travel: posts => posts.getGenere==="Travel",
+  Lifestyle:posts=> posts.getGenere==="Lifestyle",
+  Business:posts=> posts.getGenere==="Business",
+  Food:posts=> posts.getGenere==="Food",
+  Work:posts=>posts.getGenere==="Travel"
+  
+}
+const FilterNames=Object.keys(FilterMap)
 
-function App() {
+
+function App({onAdd}) {
+//const [isModalDisplayed,setIsModalDisplayed]=useState(false)
+const[filter, setFilter]= useState('All')
+const[posts,setPosts]=useState(
+  [
+    {
+      id:1,
+      getTitle:'Titulo Generico',
+      getGenere:'Lifestyle',
+      getBody:'Prueba de body'
+    },
+  ]
+ )
+
+//FilterList
+
+const filterList =  FilterNames.map(name=>(
+  <FilterButton 
+    key={name}
+    name={name}
+    isPressed={name === filter}
+    setFilter={setFilter}/>
+))
+
+ //addPost action
+
+ const addPost = (post)=>{
+   const id= Math.floor(Math.random()*1000)+1
+   const getPost = {id,...post}
+   setPosts([...posts,getPost])
+ }
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+  <>
+        <div className='headerTitle'>
+          <h5>Making your life easier</h5>
+        </div>
+        <div className='titleCont'>
+          <h1>Discovering the world</h1>
+        </div>
+        <div className='FilterBtnStyle'>
+          {filterList}
+        </div>
+          <div className='buttonCont'>
+           <PostModalBtn onClick={onAdd}/>
+        </div>
+            <PostFormModal onAdd={addPost}/>
+        
+        <PostList posts={posts.filter(FilterMap[filter])}/>
+       { console.log(<PostList/>)}
+ </>
   );
 }
 
