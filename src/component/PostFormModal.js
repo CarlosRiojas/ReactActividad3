@@ -10,15 +10,16 @@ const [getBody,setBody]=useState('')
         
     const onSubmit=(e)=>{
         e.preventDefault()
-        onAdd({getGenere,getTitle})
+        onAdd({getGenere,getTitle,getBody})
 
     }
 
 
 return( 
 
-        <div>
+        <div className='formStyle' >
             <form onSubmit={onSubmit}>
+                <div className="formStyleInner">
                     <label>Choose a genere: </label>
                     <select value={getGenere} onChange={e=>setGenere(e.target.value)}>
                         <option value='Travel'>Travel</option>
@@ -27,22 +28,27 @@ return(
                         <option value='Food'>Food</option>
                         <option value='Work'>Work</option>
                     </ select>
+               </div>
 
+                <div className="formStyleInner">
                     <label>Title:</label>
                         <input type="text"
                         value={getTitle}
                                 placeholder='add a title!'
-                                onChange={(e)=>setTitle(e.target.value)}>
-
-                
+                                onChange={(e)=>setTitle(e.target.value)}> 
                         </input>
-                        <label> body:</label>
-                    <input type='text'
+                </div>
+                <div className="formStyleInner">
+                       
+                    <textarea type='textarea'
+                        rows='10'
+                        cols="35"
                         value={getBody}
                         placeholder='add text!'
                         onChange={(e)=>setBody(e.target.value)}>
                        
-                    </input>
+                    </textarea>
+                </div>
                     <input type="submit" value="Save post"/>
             </form>
         </div>

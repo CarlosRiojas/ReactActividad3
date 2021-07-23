@@ -10,14 +10,14 @@ const FilterMap = {
   Lifestyle:posts=> posts.getGenere==="Lifestyle",
   Business:posts=> posts.getGenere==="Business",
   Food:posts=> posts.getGenere==="Food",
-  Work:posts=>posts.getGenere==="Travel"
+  Work:posts=>posts.getGenere==="Work"
   
 }
 const FilterNames=Object.keys(FilterMap)
 
 
 function App({onAdd}) {
-//const [isModalDisplayed,setIsModalDisplayed]=useState(false)
+const [isModalDisplayed,setIsModalDisplayed]=useState(false)
 const[filter, setFilter]= useState('All')
 const[posts,setPosts]=useState(
   [
@@ -50,20 +50,23 @@ const filterList =  FilterNames.map(name=>(
   return (
   <>
         <div className='headerTitle'>
-          <h5>Making your life easier</h5>
+          <div className='innerHeader'>
+          <h1> [ </h1><h5>Making your life easier</h5> <h1>]</h1>
+          </div>
         </div>
         <div className='titleCont'>
           <h1>Discovering the world</h1>
         </div>
+        <div className='buttonCont'>
+           <PostModalBtn onClick={()=>setIsModalDisplayed(!isModalDisplayed)}/>
+        </div>
         <div className='FilterBtnStyle'>
           {filterList}
         </div>
-          <div className='buttonCont'>
-           <PostModalBtn onClick={onAdd}/>
-        </div>
-            <PostFormModal onAdd={addPost}/>
+        {isModalDisplayed &&  <PostFormModal onAdd={addPost} 
+        />}
         
-        <PostList posts={posts.filter(FilterMap[filter])}/>
+      <PostList posts={posts.filter(FilterMap[filter])}/>
        { console.log(<PostList/>)}
  </>
   );

@@ -4,16 +4,17 @@ function Post({post}){
 
     return(
         <div className='PostBlock'>
-             <div>
-                {post.getTitle}
+              <div>
+            <h3>genere:{post.getGenere}</h3>
+           
             </div>
-
-            <div>
-                {post.getGenere}
+             <div>
+                 <h3>Title: {post.getTitle}</h3>
             </div>
             
             <div>
-                {post.getBody}
+            <p>{post.getBody}</p>
+        
             </div>
             
         </div>
