@@ -14,7 +14,8 @@ function PostList({posts}){
             posts.map((post)=>(
                 <Post 
                 key={post.id}
-                post={post} />
+                post={post} 
+               />
             ))}
         </div>
 

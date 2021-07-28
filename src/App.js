@@ -3,6 +3,7 @@ import PostList from "./component/PostList";
 import PostModalBtn from "./component/postModalBtn";
 import PostFormModal from "./component/PostFormModal";
 import FilterButton from "./component/FilterButton";
+
 //Filter MAP
 const FilterMap = {
   All:() => true,
@@ -25,8 +26,9 @@ const[posts,setPosts]=useState(
       id:1,
       getTitle:'Titulo Generico',
       getGenere:'Lifestyle',
-      getBody:'Prueba de body'
-    },
+      getBody:'Prueba de body',
+        getImage:'https://res.cloudinary.com/dk5lv4qj5/image/upload/v1605813013/coleccion/app-animal2.jpg.jpg'
+      },
   ]
  )
 
@@ -39,6 +41,8 @@ const filterList =  FilterNames.map(name=>(
     isPressed={name === filter}
     setFilter={setFilter}/>
 ))
+
+
 
  //addPost action
 
@@ -66,7 +70,7 @@ const filterList =  FilterNames.map(name=>(
         {isModalDisplayed &&  <PostFormModal onAdd={addPost} 
         />}
         
-      <PostList posts={posts.filter(FilterMap[filter])}/>
+      <PostList posts={posts.filter(FilterMap[filter])} style={{backgroundImage: `url(${posts.getImage})`}}/>
        { console.log(<PostList/>)}
  </>
   );

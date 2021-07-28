@@ -1,24 +1,38 @@
 import { useState } from "react"
+import Axios from "axios"
+
+
 
 function PostFormModal({onAdd}){
- let [getGenere,setGenere]=useState('Travel')
- const [getTitle,setTitle]=useState('')
+ 
+let [getGenere,setGenere]=useState('Travel')
+const [getTitle,setTitle]=useState('')
 const [getBody,setBody]=useState('')
+let [getImage,setImage]=useState('')
+
+   const uploadImage = () => {
+    const formData = new FormData()
+    formData.append("file",getImage)
+    formData.append("upload_preset","ddyy5zbx")
+
+    
+    Axios.post("https://api.cloudinary.com/v1_1/dk5lv4qj5/image/upload",formData)
+    .then((res)=>console.log(res))
+    .catch((e)=>console.log(e))
+}
 
     //const genere = ['Travel','LifeStyle','Business','Food','Work']
         
         
     const onSubmit=(e)=>{
         e.preventDefault()
-        onAdd({getGenere,getTitle,getBody})
-
+        onAdd({getGenere,getTitle,getBody,getImage})
     }
-
 
 return( 
 
         <div className='formStyle' >
-            <form onSubmit={onSubmit}>
+            <form onSubmit={onSubmit} >
                 <div className="formStyleInner">
                     <label>Choose a genere: </label>
                     <select value={getGenere} onChange={e=>setGenere(e.target.value)}>
@@ -38,6 +52,16 @@ return(
                                 onChange={(e)=>setTitle(e.target.value)}> 
                         </input>
                 </div>
+                
+                <div className="formStyleInner">
+                    <label>Background Image:</label>
+                        <input type="file"
+                                onChange={(e)=>setImage(e.target.files[0])}> 
+                               
+                        </input>
+                      
+                </div>
+
                 <div className="formStyleInner">
                        
                     <textarea type='textarea'
@@ -49,7 +73,7 @@ return(
                        
                     </textarea>
                 </div>
-                    <input type="submit" value="Save post"/>
+                    <input type="submit" value="Save post" onClick={uploadImage}/>
             </form>
         </div>
     )

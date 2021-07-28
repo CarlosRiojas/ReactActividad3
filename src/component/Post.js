@@ -1,9 +1,10 @@
 
 function Post({post}){
 
-
     return(
-        <div className='PostBlock'>
+        <div className='PostBlock' 
+        style={{backgroundImage: `url(${post.getImage})`}}>
+           {console.log(post.getImage)} 
               <div>
             <h3>genere:{post.getGenere}</h3>
            
