@@ -17,7 +17,7 @@ const FilterMap = {
 const FilterNames=Object.keys(FilterMap)
 
 
-function App({onAdd}) {
+function App() {
 const [isModalDisplayed,setIsModalDisplayed]=useState(false)
 const[filter, setFilter]= useState('All')
 const[posts,setPosts]=useState(
@@ -27,7 +27,7 @@ const[posts,setPosts]=useState(
       getTitle:'Titulo Generico',
       getGenere:'Lifestyle',
       getBody:'Prueba de body',
-        getImage:'https://res.cloudinary.com/dk5lv4qj5/image/upload/v1605813013/coleccion/app-animal2.jpg.jpg'
+        getImgUrl:'https://res.cloudinary.com/dk5lv4qj5/image/upload/v1605813013/coleccion/app-animal2.jpg.jpg'
       },
   ]
  )
@@ -70,8 +70,8 @@ const filterList =  FilterNames.map(name=>(
         {isModalDisplayed &&  <PostFormModal onAdd={addPost} 
         />}
         
-      <PostList posts={posts.filter(FilterMap[filter])} style={{backgroundImage: `url(${posts.getImage})`}}/>
-       { console.log(<PostList/>)}
+      <PostList posts={posts.filter(FilterMap[filter])}/>
+       
  </>
   );
 }

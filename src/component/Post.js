@@ -1,14 +1,17 @@
-
+import {Image} from 'cloudinary-react'
 function Post({post}){
 
     return(
         <div className='PostBlock' 
-        style={{backgroundImage: `url(${post.getImage})`}}>
-           {console.log(post.getImage)} 
+        style={{
+            backgroundImage: `url(${post.getImgUrl})`}}> 
+           
+           {console.log(post.getImage)}
+           {console.log(post.getImgUrl)} 
               <div>
             <h3>genere:{post.getGenere}</h3>
            
-            </div>
+                </div>
              <div>
                  <h3>Title: {post.getTitle}</h3>
             </div>
@@ -17,7 +20,7 @@ function Post({post}){
             <p>{post.getBody}</p>
         
             </div>
-            
+    
         </div>
     )
 }

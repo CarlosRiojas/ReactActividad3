@@ -9,24 +9,35 @@ let [getGenere,setGenere]=useState('Travel')
 const [getTitle,setTitle]=useState('')
 const [getBody,setBody]=useState('')
 let [getImage,setImage]=useState('')
+let [getImgUrl,setImgUrl]=useState('')
 
-   const uploadImage = () => {
+
+   const UploadImage = ({getImgUrl}) => {
+    
     const formData = new FormData()
     formData.append("file",getImage)
     formData.append("upload_preset","ddyy5zbx")
 
-    
     Axios.post("https://api.cloudinary.com/v1_1/dk5lv4qj5/image/upload",formData)
-    .then((res)=>console.log(res))
-    .catch((e)=>console.log(e))
-}
 
+        .then((res)=>{console.log(res.data.secure_url)
+             setImgUrl(res.data.secure_url)
+             getImgUrl=res.data.secure_url
+             console.log(getImgUrl)
+            })
+           
+            .catch((e)=>console.log(e))   
+
+
+    console.log(getImage)
+}    
+ 
     //const genere = ['Travel','LifeStyle','Business','Food','Work']
         
         
     const onSubmit=(e)=>{
         e.preventDefault()
-        onAdd({getGenere,getTitle,getBody,getImage})
+        onAdd({getGenere,getTitle,getBody,getImage,getImgUrl})
     }
 
 return( 
@@ -73,7 +84,7 @@ return(
                        
                     </textarea>
                 </div>
-                    <input type="submit" value="Save post" onClick={uploadImage}/>
+                    <input type="submit" value="Save post" onClick={UploadImage}/>
             </form>
         </div>
     )
